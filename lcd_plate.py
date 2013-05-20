@@ -441,15 +441,7 @@ class Adafruit_CharLCDPlate(Adafruit_I2C):
     # Test code
 
 if __name__ == '__main__':
-    ws = MopidyClient("ws://localhost:6680/mopidy/ws/")
-    ws.connect()
-    message = "VVISIGOTH\nINDUSTRIES" 
-    lcd = Adafruit_CharLCDPlate()
-    lcd.clear()
-    lcd.backlight(lcd.VIOLET)
-    lcd.message(message)
-    #ws.close()
-
+    pass
     """
 
     lcd.begin(16, 2)
@@ -483,24 +475,3 @@ if __name__ == '__main__':
            (lcd.DOWN  , 'Down'  , lcd.GREEN),
            (lcd.RIGHT , 'Right' , lcd.VIOLET))
     """
-    btn = ((lcd.SELECT, 'Play', 'core.playback.play'),
-           (lcd.LEFT  , 'Prev'  , 'core.playback.previous'),
-           (lcd.RIGHT , 'Next' , 'core.playback.next'))
-    prev = -1
-    while True:
-        for b in btn:
-            if lcd.buttonPressed(b[0]):
-                if b is not prev:
-                    print b[1]
-                    #lcd.clear()
-                    payload = {
-                        "jsonrpc": "2.0",
-                        "id": 1,
-                        "method": b[2]
-                    }
-                    ws.send(json.dumps(payload))
-                    #lcd.backlight(b[2])
-                    lcd.clear()
-                    lcd.message(b[1])
-                    prev = b
-                break
